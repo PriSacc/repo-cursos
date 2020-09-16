@@ -1,4 +1,4 @@
-<div	class="container	content">
+<div	class="container content">
     <div	class="row">
         <div	class="col-md-6	offset-md-3">
             <span	class="anchor"	id="formLogin"></span>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <hr	class="mb-5">
-    <div	class="row">
-        <app-destino-viaje></app-destino-viaje>
+    <div	class="row row-flex">
+        <app-destino-viaje *ngFor="let d of destinos" [destinos]="d"></app-destino-viaje>
     </div>
 </div>

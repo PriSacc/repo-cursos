@@ -18,4 +18,9 @@ export class ListaDestinoComponent implements OnInit {
     this.destinos.push(new DestinoViajes(nombre,url));
     return false; //para que no recargue la pagina
   }
+
+  marcar(d: DestinoViajes) {
+    this.destinos.forEach( (x) => {x.setSelected(false)});
+    d.setSelected(true);
+  }
 }

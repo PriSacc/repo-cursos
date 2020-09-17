@@ -17,6 +17,7 @@
         <a	href="#" class="btn-card" (click)="ir()">Marcar</a>
         <span *ngIf="destinos.isSelected()">
             <span ngNonBindable>Favorito</span>
-        </span>		
+        </span>
+        <a [routerLink]="['/destino']">Ver detalle</a>		
     </div>
 </div>

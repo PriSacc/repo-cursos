@@ -1,7 +1,9 @@
 export class DestinoViajes {
   private selected: boolean;
-  
+  public detalle: string[];
+
   constructor (public nombre: string, public url: string){
+    this.detalle = ['Desayuno','Pileta'];
   }
 
   isSelected() {

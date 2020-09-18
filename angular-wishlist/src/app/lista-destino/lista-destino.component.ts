@@ -20,8 +20,7 @@ export class ListaDestinoComponent implements OnInit {
 
   agregado(d: DestinoViajes) {
     //this.destinoApiCliente.add(d);
-    this.destinos.push(d)
-    this.onItemAdded.emit(d);
+    this.destinos.push(d);
   }
 
   marcar(d: DestinoViajes) {

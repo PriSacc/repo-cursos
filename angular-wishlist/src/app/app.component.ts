@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular Wish List';
+  time = new Observable(obs => {
+    setInterval(()=>obs.next(new Date().toString()), 1000); //puede usarse para hacer consultas a un servidor cada x cantidad de tiempo
+  });
+
+  
 }

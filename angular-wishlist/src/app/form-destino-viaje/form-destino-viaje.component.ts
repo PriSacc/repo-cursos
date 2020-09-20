@@ -24,7 +24,7 @@ export class FormDestinoViajeComponent implements OnInit {
         this.nombreValidator,
         this.nombreValidatorParametrizable(this.minLenName)
       ])],
-      url: ['']
+      url: [''],
     });
 
     this.fg.valueChanges.subscribe((form: any) => {

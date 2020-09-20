@@ -8,11 +8,11 @@ import { DestinoApiCliente } from '../models/destinoApiCliente.model';
   styleUrls: ['./lista-destino.component.scss']
 })
 export class ListaDestinoComponent implements OnInit {
-  @Output() onItemAdded: EventEmitter<DestinoViajes>;
+  destinoApiCliente: DestinoApiCliente;
   update: string[];
 
-  constructor(private destinoApiCliente: DestinoApiCliente) { 
-    this.onItemAdded = new EventEmitter();
+  constructor() { 
+    this.destinoApiCliente = new DestinoApiCliente;
     this.update = [];
     this.destinoApiCliente.susbcribeOnChange((d:DestinoViajes) => {
       if (d != null) {
@@ -26,7 +26,6 @@ export class ListaDestinoComponent implements OnInit {
 
   agregado(d: DestinoViajes) {
     this.destinoApiCliente.add(d);
-    this.onItemAdded.emit(d);
   }
 
   marcar(d: DestinoViajes) {

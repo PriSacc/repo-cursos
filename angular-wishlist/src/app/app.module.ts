@@ -9,11 +9,31 @@ import { ListaDestinoComponent } from './lista-destino/lista-destino.component';
 import { DestinoDetalleComponent } from './destino-detalle/destino-detalle.component';
 import { FormDestinoViajeComponent } from './form-destino-viaje/form-destino-viaje.component';
 
+import { DestinosViajesState, reducerDestinosViajes, initializeDestinosViajesState, DestinosViajesEffects } from './models/destinos-viajes-state.models';
+import { ActionReducerMap, StoreModule as NgRxStoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch:'full'},
   {path:'home', component: ListaDestinoComponent},
-  {path:'destino', component: DestinoDetalleComponent}
+  {path:'destino', component: DestinoDetalleComponent} /*'destino/:id' --> no lo pongo porque no tengo ID en destino[]*/
 ];
+
+// redux
+export interface AppState {
+  destinos: DestinosViajesState;
+}
+
+const reducers: ActionReducerMap<AppState> = {
+  destinos: reducerDestinosViajes
+};
+
+const reducersInitialState = {
+  destinos: initializeDestinosViajesState()
+}
+
+
+// fin
 
 @NgModule({
   declarations: [
@@ -21,13 +41,15 @@ const routes: Routes = [
     DestinoViajeComponent,
     ListaDestinoComponent,
     DestinoDetalleComponent,
-    FormDestinoViajeComponent
+    FormDestinoViajeComponent,
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes),
+    NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
+    EffectsModule.forRoot([DestinosViajesEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

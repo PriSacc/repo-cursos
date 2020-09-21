@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DestinoViajes } from '../models/destino-viaje.models';
 import { DestinoApiCliente } from '../models/destinoApiCliente.model';
 

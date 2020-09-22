@@ -51,19 +51,19 @@ export function reducerDestinosViajes (
       return {
         ...state,
         items: [...state.items, (action as NuevoDestinoAction).destino]
-      }
+      };
     }
     case DestinosViajesActionTypes.ELEGIDO_FAVORITO: {
       state.items.forEach( x => x.setSelected(false));
       const fav: DestinoViajes = (action as ElegidoFavoritoAction).destino;
       fav.setSelected(true);
       return {
-          ...state,
-          favorito: fav
+        ...state,
+        favorito: fav
       };
     }
-    return state;
   }
+  return state;
 }
 
 // Efectos

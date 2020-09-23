@@ -1,6 +1,10 @@
+import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { AppState } from '../app.module';
 import { DestinoViajes } from './destino-viaje.models'
+import { ElegidoFavoritoAction, NuevoDestinoAction } from './destinos-viajes-state.models';
 
+//@Injectable
 export class DestinoApiCliente {
   destino: DestinoViajes[];
   current: Subject<DestinoViajes> = new BehaviorSubject<DestinoViajes>(null);
@@ -30,4 +34,21 @@ export class DestinoApiCliente {
   susbcribeOnChange(fn) {
     this.current.subscribe(fn);
   }
+
+
+
+  // CON REDUX SE SIMPLIFICA ASÍ:
+  // NO LO PONGO PORQUE NO PUEDO PONER PRIVADO -me tira error en el ng serve- EN LISTA-DESTINO AL DESTINOVIAJEAPICLIENTE
+  // constructor(private store: Store<AppState>) {
+  // }
+
+  // add(d: DestinoViajes) {
+  //   this.store.dispatch(new NuevoDestinoAction(d));
+  // }
+
+  // elegir(d: DestinoViajes) {
+  //   this.store.dispatch(new ElegidoFavoritoAction(d));
+  // }
+
+  
 }

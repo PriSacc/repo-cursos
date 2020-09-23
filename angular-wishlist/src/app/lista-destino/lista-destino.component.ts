@@ -35,8 +35,9 @@ export class ListaDestinoComponent implements OnInit {
   //   this.destinoApiCliente.elegir(d);
   // }
 
-  destinoApiCliente: DestinoApiCliente;
+  destinoApiCliente: DestinoApiCliente
   update: string[];
+  all;
 
   constructor(private store: Store<AppState>) { 
     this.destinoApiCliente = new DestinoApiCliente;
@@ -47,6 +48,7 @@ export class ListaDestinoComponent implements OnInit {
         this.update.push('Se ha elegido a: '+ d.nombre);
       }
     });
+    this.all = this.store.select( state => state.destinos.items).subscribe(items => this.all = items)
   }
 
   ngOnInit(): void {

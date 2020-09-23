@@ -13,6 +13,9 @@ import { DestinosViajesState, reducerDestinosViajes, initializeDestinosViajesSta
 import { ActionReducerMap, StoreModule as NgRxStoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch:'full'},
   {path:'home', component: ListaDestinoComponent},
@@ -54,8 +57,9 @@ const reducersInitialState = {
         strictActionImmutability: false,
         strictStateImmutability: false,
       }
-     }),
-    EffectsModule.forRoot([DestinosViajesEffects])
+    }),
+    EffectsModule.forRoot([DestinosViajesEffects]),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [],
   bootstrap: [AppComponent]

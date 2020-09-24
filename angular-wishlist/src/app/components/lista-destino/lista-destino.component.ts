@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DestinoViajes } from '../models/destino-viaje.models';
-import { DestinoApiCliente } from '../models/destinoApiCliente.model';
+import { DestinoViajes } from '../../models/destino-viaje.models';
+import { DestinoApiCliente } from '../../models/destinoApiCliente.model';
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.module'
-import { ElegidoFavoritoAction, NuevoDestinoAction } from '../models/destinos-viajes-state.models';
+import { AppState } from '../../app.module'
+import { ElegidoFavoritoAction, NuevoDestinoAction } from '../../models/destinos-viajes-state.models';
 
 @Component({
   selector: 'app-lista-destino',

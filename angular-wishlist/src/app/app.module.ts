@@ -24,6 +24,7 @@ import { VuelosComponent } from './components/vuelos/vuelos-component/vuelos-com
 import { VuelosMainComponent } from './components/vuelos/vuelos-main-component/vuelos-main-component.component';
 import { VuelosMasInfoComponent } from './components/vuelos/vuelos-mas-info-component/vuelos-mas-info-component.component';
 import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
+import { ReservasModule } from './reservas/reservas.module';
 
 export const childrenRoutesVuelos: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -93,7 +94,8 @@ const reducersInitialState = {
       }
     }),
     EffectsModule.forRoot([DestinosViajesEffects]),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    ReservasModule
   ],
   providers: [
     DestinoApiCliente, AuthService, UsuarioLogueadoGuard

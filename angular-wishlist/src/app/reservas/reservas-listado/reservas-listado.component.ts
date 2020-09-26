@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ReservasApiClientService } from '../reservas-api-client.service';
 
 @Component({
   selector: 'app-reservas-listado',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reservas-listado.component.scss']
 })
 export class ReservasListadoComponent implements OnInit {
+  api: ReservasApiClientService;
 
-  constructor() { }
+  constructor() { 
+    this.api = new ReservasApiClientService;
+  }
 
   ngOnInit(): void {
   }

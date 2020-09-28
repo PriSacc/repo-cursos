@@ -1,21 +1,41 @@
-import { Injectable } from '@angular/core';
+import { forwardRef, Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { AppState } from '../app.module';
+// import { BehaviorSubject, Subject } from 'rxjs';
+import { AppConfig, AppState, APP_CONFIG } from '../app.module';
 import { DestinoViajes } from './destino-viaje.models'
 import { ElegidoFavoritoAction, NuevoDestinoAction } from './destinos-viajes-state.models';
+import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 
-//@Injectable
+@Injectable()
 export class DestinoApiCliente {
-  destino: DestinoViajes[];
-  current: Subject<DestinoViajes> = new BehaviorSubject<DestinoViajes>(null);
+  destino: DestinoViajes[] = [];
 
-  constructor() {
-    this.destino = [];
+  constructor(
+    private store: Store<AppState>,
+    @Inject(forwardRef(() => APP_CONFIG)) private config: AppConfig,
+    private http: HttpClient) {
+     this.store
+       .select(state => state.destinos)
+       .subscribe((data) => {
+         console.log('destinos sub store');
+         console.log(data);
+         this.destino = data.items;
+       });
+     this.store
+       .subscribe((data) => {
+         console.log('all store');
+         console.log(data);
+       });
   }
 
   add(d: DestinoViajes) {
-    this.destino.push(d);
+    const headers: HttpHeaders = new HttpHeaders({'X-API-TOKEN': 'token-seguridad'});
+    const req = new HttpRequest('POST', this.config.apiEndpoint + '/my', {nuevo: d.nombre}, {headers: headers});
+    this.http.request(req).subscribe((data: HttpResponse<{}>) => {
+      if (data.status === 200) {
+        this.store.dispatch(new NuevoDestinoAction(d));
+      }
+   });
   }
 
   getAll(): DestinoViajes[] {
@@ -25,43 +45,8 @@ export class DestinoApiCliente {
   getById(id: string): DestinoViajes {
     return this.destino.filter((x) => {x.id.toString() == id;})[0];
   }
-
-  elegir(d: DestinoViajes) {
-    this.destino.forEach((x) => x.setSelected(false));
-    d.setSelected(true);
-    this.current.next(d);
-  }
-
-  susbcribeOnChange(fn) {
-    this.current.subscribe(fn);
-  }
-
-
-
-  // CON REDUX SE SIMPLIFICA ASÍ:
-  // NO LO PONGO PORQUE NO PUEDO PONER PRIVADO -me tira error en el ng serve- EN LISTA-DESTINO AL DESTINOVIAJEAPICLIENTE
-  // constructor(private store: Store<AppState>) {
-  //  this.store
-  //    .select(state => state.destinos)
-  //    .subscribe((data) => {
-  //      console.log('destinos sub store');
-  //      console.log(data);
-  //      this.destino = data.items;
-  //    });
-  //    this.store
-  //      .subscribe((data) => {
-  //        console.log('all store');
-  //        console.log(data);
-  //      });
-  // }
-
-  // add(d: DestinoViajes) {
-  //   this.store.dispatch(new NuevoDestinoAction(d));
-  // }
-
-  // elegir(d: DestinoViajes) {
-  //   this.store.dispatch(new ElegidoFavoritoAction(d));
-  // }
-
   
+  elegir(d: DestinoViajes) {
+    this.store.dispatch(new ElegidoFavoritoAction(d));
+  }  
 }

@@ -12,56 +12,28 @@ import { ElegidoFavoritoAction, NuevoDestinoAction } from '../../models/destinos
   providers: [DestinoApiCliente] //necesitaba esto para poder declarar privada destinoApiCliente
 })
 export class ListaDestinoComponent implements OnInit {
-  // destinoApiCliente: DestinoApiCliente;
-  // update: string[];
-
-  // constructor() { 
-  //   this.destinoApiCliente = new DestinoApiCliente;
-  //   this.update = [];
-  //   this.destinoApiCliente.susbcribeOnChange((d:DestinoViajes) => {
-  //     if (d != null) {
-  //       this.update.push('Se ha elegido a: '+ d.nombre);
-  //     }
-  //   });
-  // }
-
-  // ngOnInit(): void {
-  // }
-
-  // agregado(d: DestinoViajes) {
-  //   this.destinoApiCliente.add(d);
-  // }
-
-  // marcar(d: DestinoViajes) {
-  //   this.destinoApiCliente.elegir(d);
-  // }
-
-  
   update: string[];
   all;
 
-  constructor(private store: Store<AppState>, private destinoApiCliente: DestinoApiCliente) { 
-    //this.destinoApiCliente = new DestinoApiCliente;
+  constructor(private store: Store<AppState>, 
+    private destinoApiCliente: DestinoApiCliente) { 
     this.update = [];
+  }
+  
+  ngOnInit(): void {
     this.store.select( (state) => state.destinos.favorito)
       .subscribe( (d) => {
       if (d != null) {
         this.update.push('Se ha elegido a: '+ d.nombre);
       }
     });
-    this.all = this.store.select( state => state.destinos.items).subscribe(items => this.all = items)
-  }
-
-  ngOnInit(): void {
   }
 
   agregado(d: DestinoViajes) {
     this.destinoApiCliente.add(d);
-    this.store.dispatch(new NuevoDestinoAction(d));
   }
 
   marcar(d: DestinoViajes) {
     this.destinoApiCliente.elegir(d);
-    this.store.dispatch(new ElegidoFavoritoAction(d));
   }
 }

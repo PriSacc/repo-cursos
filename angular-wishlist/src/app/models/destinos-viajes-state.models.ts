@@ -1,12 +1,10 @@
-//REDUX INSTALAR UN ESTADO UNICO GLOBAL Y QUE LOS OMPONENTES SE SOBRE TODO EL ARBOL DE ESTADO -- escuchar de de nuevo
-
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DestinoViajes } from './destino-viaje.models';
-
+import { HttpClientModule } from '@angular/common/http';
 
 // Estado
 export interface DestinosViajesState {
@@ -15,7 +13,7 @@ export interface DestinosViajesState {
   favorito: DestinoViajes;
 }
 
-export const initializeDestinosViajesState = function() {
+export function initializeDestinosViajesState() {
   return {
     items: [],
     loading: false,
@@ -28,7 +26,8 @@ export enum DestinosViajesActionTypes {
   NUEVO_DESTINO = "[Destinos Viajes] nuevo",
   ELEGIDO_FAVORITO = "[Destinos Viajes] favorito",
   VOTE_UP = "[Destinos Viajes] vote up",
-  VOTE_DOWN = "[Destinos Viajes] vote down"
+  VOTE_DOWN = "[Destinos Viajes] vote down",
+  INIT_MY_DATA = "[Destinos Viajes] init my data"
 }
 
 export class NuevoDestinoAction implements Action {
@@ -51,7 +50,12 @@ export class VoteDownAction implements Action {
   constructor (public destino: DestinoViajes) {}
 }
 
-export type DestinosViajesActions = NuevoDestinoAction | ElegidoFavoritoAction | VoteUpAction | VoteDownAction ;
+export class InitMyDataAction implements Action {
+  type = DestinosViajesActionTypes.INIT_MY_DATA;
+  constructor(public destinos: string[]) {}
+}
+
+export type DestinosViajesActions = NuevoDestinoAction | ElegidoFavoritoAction | VoteUpAction | VoteDownAction | InitMyDataAction;
 
 // Reductores o Reducers
 export function reducerDestinosViajes (
@@ -83,6 +87,13 @@ export function reducerDestinosViajes (
       const d: DestinoViajes = (action as VoteDownAction).destino;
       d.voteDown();
       return { ...state };
+    }
+    case DestinosViajesActionTypes.INIT_MY_DATA: {
+      const destinos: string[] = (action as InitMyDataAction).destinos;
+      return {
+        ...state,
+        items: destinos.map((d) => new DestinoViajes(d,''))
+      };
     }
   }
   return state;

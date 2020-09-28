@@ -7,11 +7,8 @@ import { ReservasApiClientService } from '../reservas-api-client.service';
   styleUrls: ['./reservas-listado.component.scss']
 })
 export class ReservasListadoComponent implements OnInit {
-  api: ReservasApiClientService;
 
-  constructor() { 
-    this.api = new ReservasApiClientService;
-  }
+  constructor(private api: ReservasApiClientService) { }
 
   ngOnInit(): void {
   }

@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { AppState } from '../app.module';
@@ -21,9 +22,9 @@ export class DestinoApiCliente {
     return this.destino;
   }
 
-  // getById(id: string): DestinoViajes {
-  //   return this.destino.filter((x) => {x.id.toString() == id;})[0];
-  // }
+  getById(id: string): DestinoViajes {
+    return this.destino.filter((x) => {x.id.toString() == id;})[0];
+  }
 
   elegir(d: DestinoViajes) {
     this.destino.forEach((x) => x.setSelected(false));
@@ -40,6 +41,18 @@ export class DestinoApiCliente {
   // CON REDUX SE SIMPLIFICA ASÍ:
   // NO LO PONGO PORQUE NO PUEDO PONER PRIVADO -me tira error en el ng serve- EN LISTA-DESTINO AL DESTINOVIAJEAPICLIENTE
   // constructor(private store: Store<AppState>) {
+  //  this.store
+  //    .select(state => state.destinos)
+  //    .subscribe((data) => {
+  //      console.log('destinos sub store');
+  //      console.log(data);
+  //      this.destino = data.items;
+  //    });
+  //    this.store
+  //      .subscribe((data) => {
+  //        console.log('all store');
+  //        console.log(data);
+  //      });
   // }
 
   // add(d: DestinoViajes) {

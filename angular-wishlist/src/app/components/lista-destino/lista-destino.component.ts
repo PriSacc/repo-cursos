@@ -8,7 +8,8 @@ import { ElegidoFavoritoAction, NuevoDestinoAction } from '../../models/destinos
 @Component({
   selector: 'app-lista-destino',
   templateUrl: './lista-destino.component.html',
-  styleUrls: ['./lista-destino.component.scss']
+  styleUrls: ['./lista-destino.component.scss'],
+  providers: [DestinoApiCliente] //necesitaba esto para poder declarar privada destinoApiCliente
 })
 export class ListaDestinoComponent implements OnInit {
   // destinoApiCliente: DestinoApiCliente;
@@ -35,12 +36,12 @@ export class ListaDestinoComponent implements OnInit {
   //   this.destinoApiCliente.elegir(d);
   // }
 
-  destinoApiCliente: DestinoApiCliente
+  
   update: string[];
   all;
 
-  constructor(private store: Store<AppState>) { 
-    this.destinoApiCliente = new DestinoApiCliente;
+  constructor(private store: Store<AppState>, private destinoApiCliente: DestinoApiCliente) { 
+    //this.destinoApiCliente = new DestinoApiCliente;
     this.update = [];
     this.store.select( (state) => state.destinos.favorito)
       .subscribe( (d) => {

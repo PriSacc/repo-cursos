@@ -98,7 +98,7 @@ const reducersInitialState = {
     ReservasModule
   ],
   providers: [
-    DestinoApiCliente, AuthService, UsuarioLogueadoGuard
+    AuthService, UsuarioLogueadoGuard
   ],
   bootstrap: [AppComponent]
 })

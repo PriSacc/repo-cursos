@@ -34,6 +34,9 @@ import { ReservasModule } from './reservas/reservas.module';
 
 import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest } from '@angular/common/http';
 
+import Dexie from 'dexie';
+import { DestinoViajes } from './models/destino-viaje.models';
+
 //inicio appconfig
 export interface AppConfig {
   apiEndpoint: String;
@@ -102,6 +105,24 @@ class AppLoadService {
 }
 //fin app
 
+// dexie db
+@Injectable({
+  providedIn: 'root'
+})
+
+export class MyDataBase extends Dexie {
+  destinos: Dexie.Table<DestinoViajes, number>;
+  constructor() {
+    super('MyDatabase');
+    this.version(1).stores({
+      destinos: '++id, nombre, imagenUrl',
+    });
+  }
+}
+
+export const db = new MyDataBase();
+// fin dexie db
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,7 +155,7 @@ class AppLoadService {
     ReservasModule
   ],
   providers: [
-    AuthService, UsuarioLogueadoGuard,
+    AuthService, UsuarioLogueadoGuard, MyDataBase,
     {provide: APP_CONFIG, useValue: APP_CONFIG_VALUE},
     AppLoadService, {provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true}
   ],

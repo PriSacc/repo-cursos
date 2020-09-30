@@ -16,10 +16,11 @@
     <hr	class="mb-5">
     <div	class="row row-flex">
         <app-destino-viaje 
-        *ngFor="let d of all; let i=index" 
+        *ngFor="let d of destinoApiCliente.getAll(); let i=index" 
         [destinos]="d"
         [posicion]="i+1"
-        (destinoSeleccionado)="marcar(d)">
+        (destinoSeleccionado)="marcar(d)"
+        appEspiame>
         </app-destino-viaje>
     </div>
 

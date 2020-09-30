@@ -15,15 +15,19 @@
             </li>
         </ul>
         <div>
-            <a href="#" (click)="voteUp()">
+            <a href="#" (click)="voteUp()"
+            appTrackearClick data-trackear-tag="destinos_vote_up lista_destino_item"> <!-- invento el nombre de los tags  -->
                 <i class="material-icons md-18">thumb_up</i>
             </a>
-            <a href="#" (click)="voteDown()">
+            <a href="#" (click)="voteDown()"
+            appTrackearClick data-trackear-tag="destinos_vote_down lista_destino_item">
                 <i class="material-icons md-18">thumb_down</i>
             </a>
-            {{ destinos.vote }}
+            &nbsp;
+            Votos: {{ destinos.vote }}
         </div>
-        <a	href="#" class="btn-card" (click)="ir()">Marcar</a>
+        <a	href="#" class="btn-card" (click)="ir()"
+        appTrackearClick data-trackear-tag="destinos_elegir_preferido lista_destino_item">Marcar</a>
         <span *ngIf="destinos.isSelected()">
             <span ngNonBindable> Favorito</span>
         </span>

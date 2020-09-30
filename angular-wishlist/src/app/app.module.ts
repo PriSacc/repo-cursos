@@ -43,6 +43,8 @@ import { flatMap } from 'rxjs/operators';
 
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
 //inicio appconfig
 export interface AppConfig {
   apiEndpoint: String;
@@ -213,7 +215,8 @@ function HttpLoaderFactory(http: HttpClient) {
         useFactory: (HttpLoaderFactory),
         deps: [HttpClient]
       }
-    })
+    }),
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService, UsuarioLogueadoGuard, MyDataBase,

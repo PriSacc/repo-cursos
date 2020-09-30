@@ -1,4 +1,4 @@
-<div	class="card-content">
+<div	class="card-content" [@esFavorito]="destinos.isSelected() ? 'estadoFavorito' : 'estadoNoFavorito'">
     <div	class="card-img">
         <img	src="https://placeimg.com/380/230/nature" alt="">
         <span><h4>{{ posicion }}</h4></span>
@@ -25,8 +25,8 @@
         </div>
         <a	href="#" class="btn-card" (click)="ir()">Marcar</a>
         <span *ngIf="destinos.isSelected()">
-            <span ngNonBindable>Favorito</span>
+            <span ngNonBindable> Favorito</span>
         </span>
-        <a [routerLink]="['/destino']">Ver detalle</a>		
+        <a [routerLink]="['/destino']"> Ver detalle</a>		
     </div>
 </div>

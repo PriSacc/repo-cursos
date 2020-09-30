@@ -3,11 +3,28 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.module';
 import { DestinoViajes } from '../../models/destino-viaje.models';
 import { VoteDownAction, VoteUpAction } from '../../models/destinos-viajes-state.models';
+import { trigger, state, style, transition, animate } from '@angular/animations'
 
 @Component({
   selector: 'app-destino-viaje',
   templateUrl: './destino-viaje.component.html',
-  styleUrls: ['./destino-viaje.component.scss']
+  styleUrls: ['./destino-viaje.component.scss'],
+  animations: [
+    trigger('esFavorito', [ //cuando lo elige como favorito
+      state('esFavorito', style({ //si el estado es favorito
+        backgrounColor: 'PaleTurquoise'
+      })),
+      state('estadoNoFavorito', style({ //si el estado es no favorito
+        backgroundColor: 'WhiteSmoke'
+      })),
+      transition('estadoNoFavorito => estadoFavorito', [ //si marcamos a otro favorito, cambia el primero
+        animate('3s') //hacemos que el cambio de estilo tarde 3 segundo en cambiar, va como difuminandose por 3 seg hasta llegar al color 'firme'
+      ]),
+      transition('estadoFavorito => estadoNoFavorito', [
+        animate('1s')
+      ]),
+    ])
+  ]
 })
 export class DestinoViajeComponent implements OnInit {
   @Input() destinos: DestinoViajes;

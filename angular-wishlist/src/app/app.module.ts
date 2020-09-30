@@ -40,6 +40,9 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { getTranslationDeclStmts } from '@angular/compiler/src/render3/view/template';
 import { from, Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
+
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+
 //inicio appconfig
 export interface AppConfig {
   apiEndpoint: String;
@@ -192,6 +195,7 @@ function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxMapboxGLModule,
     RouterModule.forRoot(routes),
     NgRxStoreModule.forRoot(reducers, { 
       initialState: reducersInitialState,

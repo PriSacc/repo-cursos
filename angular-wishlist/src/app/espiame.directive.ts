@@ -11,7 +11,7 @@ export class EspiameDirective implements OnInit, OnDestroy {
     this.log('#######******** onInit');
   }
 
-  ngOnDestroy {
+  ngOnDestroy() {
     this.log('#######******** onDestroy');
   }
 }

@@ -1,0 +1,20 @@
+# cada vez que se pushee codigo a git, github le avisa a circle ci que hay una nueva version, 
+# si ese rep le creamos un no se que para integracion continua, 
+# sólo así se va a generar la int continua , tre el codigo, lo compila y corre los test
+version: 2
+jobs:
+  build:
+    working_directory: ~/myapp
+    docker:
+      - image: circleci/node:8~browsers
+    steps:
+      - checkout:
+          path: ~/myapp
+      - restore_cache:
+          key: angular-wishlist-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm install
+      - save_cache:
+          key: angular-wishlist-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - "node_modules"
+      - run: npm run test -- --progress=false --watch=false --browsers=ChromeHeadlessCI

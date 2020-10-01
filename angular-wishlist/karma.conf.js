@@ -24,8 +24,14 @@ module.exports = function (config) {
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: true,
-    browsers: ['Chrome'],
+    autoWatch: false, //cuando corremos jasmin, quede la consola abierta --> true
+    browsers: ['Chrome', 'ChromeHeadless', 'ChromeHeadlessCI'],
+    customLaunchers: { //que los tests los tiene que correr dentro de un navegador
+      ChromeHeadlessCI: { //que corra el navegador en como headless --> que no abre la ventana gráfica, garantiza que no tire error si circle no tiene instalado las librerias de graficas de mi SO
+        base: 'ChromeHeadless',
+        flags: ['--no-sandBox', '--disable-gpu', '--disable-translate', '--disable-extensions', '--remote-debugging-port=9223']
+      }
+    },
     singleRun: false,
     restartOnFileChange: true
   });
